@@ -12,24 +12,21 @@ module TestGem
   def self.parse(raw_url)
     return [] if raw_url.to_s.empty?
 
-    result = nil
     raw_url = "http://#{raw_url}" unless raw_url =~ %r{^([a-z]+:\/\/)}
     url = Addressable::URI.parse(raw_url)
     response = HTTParty.get(url)
 
-    if response.body
-      base_url = "#{url.scheme}://#{url.hostname}"
-      base_url += ":#{url.port}" if url.port && url.port != url.default_port
+    return [] unless response.body
 
-      html_doc = Nokogiri::HTML(response.body)
+    base_url = "#{url.scheme}://#{url.hostname}"
+    base_url += ":#{url.port}" if url.port && url.port != url.default_port
 
-      result = html_doc.css('img').map do |img|
-        val = img.attr('src').to_s
-        val = "#{base_url}#{val}" if val[0] == '/'
-        val
-      end
+    html_doc = Nokogiri::HTML(response.body)
+
+    html_doc.css('img').map do |img|
+      val = img.attr('src').to_s
+      val = "#{base_url}#{val}" if val[0] == '/'
+      val
     end
-
-    result
   end
 end
