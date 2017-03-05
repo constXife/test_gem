@@ -1,0 +1,14 @@
+#!/usr/bin/env ruby
+
+require 'bundler/setup'
+require 'test_gem'
+
+if ARGV[0]
+  begin
+    p TestGem.parse(ARGV[0])
+  rescue Errno::EHOSTUNREACH
+    abort "Wrong host? #{url}"
+  end
+else
+  puts 'Usage: test_gem [url]'
+end

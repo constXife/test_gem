@@ -1,0 +1,5 @@
+AllCops:
+  Include:
+    - 'lib/**/*.rb'
+  Exclude:
+    - 'spec/**/*.rb'
