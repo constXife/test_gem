@@ -19,7 +19,7 @@ module TestGem
 
     if response.body
       base_url = "#{url.scheme}://#{url.hostname}"
-      base_url += ":#{url.port}" unless [nil, 80, 443].include?(url.port)
+      base_url += ":#{url.port}" if url.port && url.port != url.default_port
 
       html_doc = Nokogiri::HTML(response.body)
 
