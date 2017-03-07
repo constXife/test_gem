@@ -24,9 +24,9 @@ module TestGem
     html_doc = Nokogiri::HTML(response.body)
 
     html_doc.css('img').map do |img|
-      val = img.attr('src').to_s
-      val = "#{base_url}#{val}" if val[0] == '/'
-      val
+      src = img.attr('src').to_s
+      src = "#{base_url}#{src}" if src[0] == '/'
+      src
     end
   end
 end

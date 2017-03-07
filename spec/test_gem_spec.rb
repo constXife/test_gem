@@ -3,13 +3,11 @@ require 'spec_helper'
 describe TestGem do
   describe '#parse' do
     let(:html_fixture)      { File.join(__dir__, 'fixtures', 'test.html') }
-    let(:html_base_fixture) { File.join(__dir__, 'fixtures', 'test_base.html') }
     let(:json_fixture)      { File.join(__dir__, 'fixtures', 'test.json') }
 
     before(:each) do
       stub_request(:get, /http:\/\/test\.com(.*)/).to_return(body: File.read(html_fixture))
       stub_request(:get, 'https://test.com').to_return(body: File.read(html_fixture))
-      stub_request(:get, 'https://base.com').to_return(body: File.read(html_base_fixture))
       stub_request(:get, 'error.com').to_return(body: File.read(json_fixture))
     end
 
